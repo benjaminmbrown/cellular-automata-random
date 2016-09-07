@@ -31,6 +31,7 @@ var CellularAutomata = function() {
     //cell's state formula : CELL state at time t = f(CELL neighborhood at time t - 1)
 
     this.rules = function(a, b, c) {
+    	console.log('rulesincoming:', a, b,c );
         if (a == 1 && b == 1 && c == 1) return this.ruleSet[0];
         if (a == 1 && b == 1 && c == 0) return this.ruleSet[1];
         if (a == 1 && b == 0 && c == 1) return this.ruleSet[2];
@@ -64,14 +65,17 @@ var CellularAutomata = function() {
     }
 
     this.generate = function() {
-       
+
         for (var i = 0; i < this.cols; i++) {
 
             var left = this.matrix[(i + this.cols - 1) % this.cols][this.generation % this.rows];
             var mid = this.matrix[i][this.generation % this.rows];
             var right = this.matrix[(i + 1) % this.cols][this.generation % this.rows];
+    
+            var response = this.rules(left,right,mid);
 
-            this.matrix[i][(this.generation + 1) % this.rows] = this.rules[left, mid, right];
+            this.matrix[i][(this.generation + 1) % this.rows] = response;
+           // console.log(this.matrix[i][(this.generation + 1) % this.rows])
         }
         this.generation++;
     }
@@ -81,22 +85,22 @@ var CellularAutomata = function() {
 
         for (var i = 0; i < this.cols; i++) {
             for (var j = 0; j < this.rows; j++) {
-            	console.log(this.matrix[i][j]);
+       
                 var y = j - offset;
 
                 if (y <= 0) y = this.rows + y;
 
                 if (this.matrix[i][j] == 1) {
-        
+
                     fill(0);
                     stroke(2);
-                    rect(i * this.w, (y - 1) * this.w, this.w, this.w);
-                }
-                else{
-                	fill(255);
+
+                } else {
+                    fill(255);
                     stroke(1);
                 }
-                       rect(i * this.w, (y - 1) * this.w, this.w, this.w);
+
+                rect(i * this.w, (y - 1) * this.w, this.w, this.w);
             }
         }
     }
