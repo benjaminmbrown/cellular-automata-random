@@ -1,41 +1,64 @@
 var CellularAutomata = function() {
     this.w = 6;
 
-    // this.cells = new Array(width/this.w);
-    // for (var i = 0;i<this.cells.length;i++){
-    // 	this.cells[i] = 0;
-    // }
+
 
     this.cells = [1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]
-     this.ruleSet = [];
+    this.ruleSet = [];
+    this.noiseIncrement = 0;
+
     //this.ruleSet = [0, 1, 0, 1, 1, 0, 1, 0]; //Rule 90
     //this.ruleSet = [0,1,1,1,1,0,1,1];   // Rule 222  
     //this.ruleSet= [0,1,1,1,1,1,0,1];   // Rule 190  
     //this.ruleSet = [0,1,1,1,1,0,0,0];   // Rule 30  
-   ///	this.ruleSet = [0,1,1,1,0,1,1,0];   // Rule 110
+    //this.ruleSet = [0,1,1,1,0,1,1,0];   // Rule 110
 
 
-   	//ranodmized ruleset
-   	this.randomizeRules = function() {
+    //ranodmized ruleset
+    this.randomizeRules = function() {
         for (var i = 0; i < 8; i++) {
             this.ruleSet[i] = Math.floor(random(2));
         }
     }
-    console.log(this.ruleSet);
-   	this.randomizeRules();
-  console.log(this.ruleSet);
+
+    this.randomizeRules();
+
+    this.addNoiseToRules = function() {
+    	var n = noise(this.noiseIncrement);
+    	console.log('time', n);
+    	   console.log('rSet before:',this.ruleSet);
+
+        for (var i = 0; i < 8; i++) {
+        	var x = map(n,0,1,0,this.ruleSet[i]);
+            this.ruleSet[i] = Math.round(x);
+        }
+        this.noiseIncrement +=0.001;
+
+        console.log('rSet after:',this.ruleSet);
+    }
+    this.createNoiseyRules = function() {
+        //https://github.com/benjaminmbrown/agents-flow-field/blob/master/Flowfield.js
+        var xoff = 0;
+        for (var i = 0; i < 8; i++) {
+            this.ruleSet[i] = Math.floor(random(2));
+        }
+
+
+    }
+
     //  this.cells[this.cells.length / 2] = 1;
     this.generation = 0;
     this.cols = Math.floor(width / this.w);
     this.rows = Math.floor(height / this.w);
 
-    console.log(this.rows, this.cols);
+
     //store generational history
     this.matrix = new Array(this.cols);
     for (var i = 0; i < this.cols; i++) {
         this.matrix[i] = new Array(this.rows);
     }
 
+    //use perlin noise to slowly change the rules over
 
 
     //cell's state formula : CELL state at time t = f(CELL neighborhood at time t - 1)
@@ -67,14 +90,18 @@ var CellularAutomata = function() {
 
     this.reset();
 
- 
+
 
     this.generate = function() {
+    	//this.addNoiseToRules();
         for (var i = 0; i < this.cols; i++) {
-            this.matrix[i][(this.generation + 1) % this.rows] = this.rules(
-            	this.matrix[(i + this.cols - 1) % this.cols][this.generation % this.rows],
-            	this.matrix[i][this.generation % this.rows],
-            	this.matrix[(i + 1) % this.cols][this.generation % this.rows]);
+
+            this.matrix[i][(this.generation + 1) % this.rows] = 
+            this.rules(
+                this.matrix[(i + this.cols - 1) % this.cols][this.generation % this.rows],
+                this.matrix[i][this.generation % this.rows],
+                this.matrix[(i + 1) % this.cols][this.generation % this.rows]
+                );
         }
         this.generation++;
     }
@@ -84,7 +111,7 @@ var CellularAutomata = function() {
 
         for (var i = 0; i < this.cols; i++) {
             for (var j = 0; j < this.rows; j++) {
-       
+
                 var y = j - offset;
 
                 if (y <= 0) y = this.rows + y;

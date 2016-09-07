@@ -15,3 +15,6 @@ Cellular automata with random rulesets
 <img src="https://media.giphy.com/media/l3vRc7NYhPdbuipgc/giphy.gif"/>
 #rule 110
 <img src="https://media.giphy.com/media/3o7TKBFDPA55K3iBwc/giphy.gif"/>
+
+#randomized rulesets:
+<img src="https://media.giphy.com/media/l0HlEsrM3QqHahlLi/giphy.gif"/>
