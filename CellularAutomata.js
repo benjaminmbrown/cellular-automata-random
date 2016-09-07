@@ -1,5 +1,5 @@
 var CellularAutomata = function() {
-    this.w = 20;
+    this.w = 6;
 
     // this.cells = new Array(width/this.w);
     // for (var i = 0;i<this.cells.length;i++){
@@ -8,16 +8,16 @@ var CellularAutomata = function() {
 
     this.cells = [1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]
 
-    this.ruleSet = [0, 1, 0, 1, 1, 0, 1, 0]; //Rule 90
-    //this.ruleSet = {0,1,1,1,1,0,1,1};   // Rule 222  
-    //this.ruleSet= {0,1,1,1,1,1,0,1};   // Rule 190  
-    //this.ruleSet= {0,1,1,1,1,0,0,0};   // Rule 30  
-    //this.ruleSet = {0,1,1,1,0,1,1,0};   // Rule 110
+    //this.ruleSet = [0, 1, 0, 1, 1, 0, 1, 0]; //Rule 90
+    //this.ruleSet = [0,1,1,1,1,0,1,1];   // Rule 222  
+    //this.ruleSet= [0,1,1,1,1,1,0,1];   // Rule 190  
+    //this.ruleSet = [0,1,1,1,1,0,0,0];   // Rule 30  
+   this.ruleSet = [0,1,1,1,0,1,1,0];   // Rule 110
 
     //  this.cells[this.cells.length / 2] = 1;
     this.generation = 0;
-    this.cols = width / this.w;
-    this.rows = height / this.w;
+    this.cols = Math.floor(width / this.w);
+    this.rows = Math.floor(height / this.w);
 
     console.log(this.rows, this.cols);
     //store generational history
@@ -65,17 +65,11 @@ var CellularAutomata = function() {
     }
 
     this.generate = function() {
-
         for (var i = 0; i < this.cols; i++) {
-
-            var left = this.matrix[(i + this.cols - 1) % this.cols][this.generation % this.rows];
-            var mid = this.matrix[i][this.generation % this.rows];
-            var right = this.matrix[(i + 1) % this.cols][this.generation % this.rows];
-    
-            var response = this.rules(left,right,mid);
-
-            this.matrix[i][(this.generation + 1) % this.rows] = response;
-           // console.log(this.matrix[i][(this.generation + 1) % this.rows])
+            this.matrix[i][(this.generation + 1) % this.rows] = this.rules(
+            	this.matrix[(i + this.cols - 1) % this.cols][this.generation % this.rows],
+            	this.matrix[i][this.generation % this.rows],
+            	this.matrix[(i + 1) % this.cols][this.generation % this.rows]);
         }
         this.generation++;
     }
