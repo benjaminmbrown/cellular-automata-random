@@ -2,7 +2,7 @@ var cellularAutomata = [];
 
 function setup() {
 
-    createCanvas(650, 450);
+    createCanvas(600, 500);
     setFrameRate(1);
     cellularAutomata = new CellularAutomata();
 }
