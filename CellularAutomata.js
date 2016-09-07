@@ -46,9 +46,11 @@ var CellularAutomata = function() {
     this.display = function() {
         var newCells = [];
         for (var i = 1; i < this.cells.length - 1; i++) {
-            if (this.cells[i] == 0) { fill(255) } else { fill(0) };
-            stroke(0);
-            rect(i * 20, 0, 20, 20);
+            if (this.cells[i] == 0) { fill(255,255,255,10) } else { fill(0,255,0,20) };
+            noStroke();
+             ellipse(i * 20, 20,30,30);
+
+            //rect(i * 20, 0, 20, 20);
 
         }
     }
