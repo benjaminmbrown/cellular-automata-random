@@ -6,6 +6,8 @@ var CellularAutomata = function() {
     this.cells = [1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]
     this.ruleSet = [];
     this.noiseIncrement = 0;
+    this.printedRuleset = false;
+    this.ruleNumber;
 
     //this.ruleSet = [0, 1, 0, 1, 1, 0, 1, 0]; //Rule 90
     //this.ruleSet = [0,1,1,1,1,0,1,1];   // Rule 222  
@@ -18,6 +20,18 @@ var CellularAutomata = function() {
     this.randomizeRules = function() {
         for (var i = 0; i < 8; i++) {
             this.ruleSet[i] = Math.floor(random(2));
+        }
+
+
+
+        if(!this.printedRuleset){
+        	console.log(this.ruleSet);
+        	var ruleString ='';
+       		for(var i = 0; i<this.ruleSet.length;i++){
+       			ruleString += this.ruleSet[i].toString();
+       		}
+       		console.log("Rule number:",parseInt(ruleString,2));
+        	this.printeRuleset != this.printedRuleset;
         }
     }
 
