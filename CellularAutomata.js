@@ -22,8 +22,6 @@ var CellularAutomata = function() {
             this.ruleSet[i] = Math.floor(random(2));
         }
 
-
-
         if(!this.printedRuleset){
         	console.log(this.ruleSet);
         	var ruleString ='';
@@ -35,6 +33,9 @@ var CellularAutomata = function() {
         }
     }
 
+    this.changeRuleSet = function(){
+    	this.randomizeRules();
+    }
     this.randomizeRules();
 
     this.addNoiseToRules = function() {

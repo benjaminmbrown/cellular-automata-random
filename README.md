@@ -1,6 +1,8 @@
 # cellular-automata-random
 Cellular automata with random rulesets
 
+#random rulesets that change on user input
+<img src="https://media.giphy.com/media/l3vR1wPgqonSdiEh2/giphy.gif"/>
 #Displaying simplest ca grid:
 <img src="https://media.giphy.com/media/l0MYH5oj0xwOmu5tS/giphy.gif"/>
 
