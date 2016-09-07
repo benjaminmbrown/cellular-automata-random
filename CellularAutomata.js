@@ -7,13 +7,23 @@ var CellularAutomata = function() {
     // }
 
     this.cells = [1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]
-
+     this.ruleSet = [];
     //this.ruleSet = [0, 1, 0, 1, 1, 0, 1, 0]; //Rule 90
     //this.ruleSet = [0,1,1,1,1,0,1,1];   // Rule 222  
     //this.ruleSet= [0,1,1,1,1,1,0,1];   // Rule 190  
     //this.ruleSet = [0,1,1,1,1,0,0,0];   // Rule 30  
-   this.ruleSet = [0,1,1,1,0,1,1,0];   // Rule 110
+   ///	this.ruleSet = [0,1,1,1,0,1,1,0];   // Rule 110
 
+
+   	//ranodmized ruleset
+   	this.randomizeRules = function() {
+        for (var i = 0; i < 8; i++) {
+            this.ruleSet[i] = Math.floor(random(2));
+        }
+    }
+    console.log(this.ruleSet);
+   	this.randomizeRules();
+  console.log(this.ruleSet);
     //  this.cells[this.cells.length / 2] = 1;
     this.generation = 0;
     this.cols = Math.floor(width / this.w);
@@ -31,7 +41,6 @@ var CellularAutomata = function() {
     //cell's state formula : CELL state at time t = f(CELL neighborhood at time t - 1)
 
     this.rules = function(a, b, c) {
-    	console.log('rulesincoming:', a, b,c );
         if (a == 1 && b == 1 && c == 1) return this.ruleSet[0];
         if (a == 1 && b == 1 && c == 0) return this.ruleSet[1];
         if (a == 1 && b == 0 && c == 1) return this.ruleSet[2];
@@ -58,11 +67,7 @@ var CellularAutomata = function() {
 
     this.reset();
 
-    this.randomizeRules = function() {
-        for (var i = 0; i < 8; i++) {
-            this.ruleSet[i] = Math.floor(random(2));
-        }
-    }
+ 
 
     this.generate = function() {
         for (var i = 0; i < this.cols; i++) {
