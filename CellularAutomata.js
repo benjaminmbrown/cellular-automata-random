@@ -133,17 +133,17 @@ var CellularAutomata = function() {
 
                 if (this.matrix[i][j] == 1) {
 
-                    fill(0,255,0,30);
+                    fill(0,255,0,90);
                      noStroke(1);
                    // stroke(2);
 
                 } else {
-                    fill(255,255,255,25);
+                    fill(255,255,255,100);
                     noStroke();
                 }
               // ellipse(i * this.w, (y - 1) * this.w, this.w*2, this.cohesionDistance*2);
-                  ellipse(i * 20, (y-1)*this.w,40,40);
-               // rect(i * this.w, (y - 1) * this.w, this.w, this.w);
+                  //ellipse(i * 20, (y-1)*this.w,40,40);
+                rect(i * this.w, (y - 1) * this.w, this.w, this.w);
             }
         }
     }
